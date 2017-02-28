@@ -7,4 +7,5 @@ var points = document.getElementsByClassName('point');
 			points[i].style.WebkitTransform = "scaleX(1) translateY(0)";
 	}
 };
- 
+
+
