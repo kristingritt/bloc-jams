@@ -28,6 +28,21 @@ var albumMarconi = {
 		{ title: 'Wrong phone number', duration: '2:15' }
 	]
 };
+// Another Exmaple Album
+var albumAdventure = {
+	title: 'Live Your Life',
+	artist: 'Kristin Gritt',
+	label: 'Pop',
+	year: '1981',
+	albumArtUrl: 'assets/images/album_covers/13.png',
+	songs: [
+		{ title: 'On The Trails', duration: '1:52' },
+		{ title: 'Going Global', duration: '3:01' },
+		{ title: 'Beaches Anytime', duration: '2:51' },
+		{ title: 'Are We There Yet?', duration: '2:15' },
+		{ title: 'Digital Nomad', duration: '4:15' }
+	]
+};
 // create a function named createSongRow that generates the song row content - we declare the objects before the function because the createSongRow function uses the info stored in the album objects
 
 var createSongRow = function (songNumber, songName, songLength) {
@@ -75,6 +90,17 @@ var playButtonTemplate = '<a class="album-song-buttom"><span class="ion-play"></
 
 window.onload = function() {
 	setCurrentAlbum(albumPicasso);
+//Add ane EventListener to album cover, when user clicks, toggles between album objects
+	var albums = [albumPicasso, albumMarconi, albumKodiak];
+	var index = 1;
+	albumImage.addEventListener("click", function(evemt) {
+		setCurrentAlbum(albums[index]);
+		index++;
+		if (index === albums.length) {
+			index = 0;
+		}
+	});
+};
 
 songListContainer.addEventListener('mouseover', function(event) {
 	// #1
