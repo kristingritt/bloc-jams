@@ -6,11 +6,11 @@ var albumPicasso = {
 	year: '1881',
 	albumArtUrl: 'assets/images/album_covers/01.png',
 	songs: [
-		{ title: 'Blue', duration: '4:26' },
-		{ title: 'Green', duration: '3:14' },
-        { title: 'Red', duration: '5:01' },
-        { title: 'Pink', duration: '3:21'},
-        { title: 'Magenta', duration: '2:15'}
+      { title: 'Blue', duration: '4:26' },
+      { title: 'Green', duration: '3:14' },
+      { title: 'Red', duration: '5:01' },
+      { title: 'Pink', duration: '3:21'},
+      { title: 'Magenta', duration: '2:15'}
     ]
 };
 // Another Example Album
@@ -28,34 +28,21 @@ var albumMarconi = {
 		{ title: 'Wrong phone number', duration: '2:15' }
 	]
 };
-// Another Exmaple Album
-var albumAdventure = {
-	title: 'Live Your Life',
-	artist: 'Kristin Gritt',
-	label: 'Pop',
-	year: '1981',
-	albumArtUrl: 'assets/images/album_covers/13.png',
-	songs: [
-		{ title: 'On The Trails', duration: '1:52' },
-		{ title: 'Going Global', duration: '3:01' },
-		{ title: 'Beaches Anytime', duration: '2:51' },
-		{ title: 'Are We There Yet?', duration: '2:15' },
-		{ title: 'Digital Nomad', duration: '4:15' }
-	]
-};
+
 // create a function named createSongRow that generates the song row content - we declare the objects before the function because the createSongRow function uses the info stored in the album objects
 
 var createSongRow = function (songNumber, songName, songLength) {
-	var template =
-		'<tr class="album-view-song-item">'
-     	+ ' <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
-		+ '	<td class="song-item-title">' + songName + '</td>'
-		+ '	<td class="song-item-duration">' + songLength + '</td>'
-		+ '</tr>';
+  var template =
+      '<tr class="album-view-song-item">'
+      + '   <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
+      + '   <td class="song-item-title">' + songName + '</td>'
+      + '   <td class="song-item-duration">' + songLength + '</td>'
+      + '</tr>';
  
     return template;
 
 };
+
 // create a function that is called when window loads and takes one of our album objects as an arguement and will utilize the object's stored info by injecting it into the template
 
 var setCurrentAlbum = function (album) {
@@ -91,18 +78,8 @@ var playButtonTemplate = '<a class="album-song-buttom"><span class="ion-play"></
 window.onload = function() {
 	setCurrentAlbum(albumPicasso);
 //Add ane EventListener to album cover, when user clicks, toggles between album objects
-	var albums = [albumPicasso, albumMarconi, albumKodiak];
-	var index = 1;
-	albumImage.addEventListener("click", function(evemt) {
-		setCurrentAlbum(albums[index]);
-		index++;
-		if (index === albums.length) {
-			index = 0;
-		}
-	});
-};
-
-songListContainer.addEventListener('mouseover', function(event) {
+	
+    songListContainer.addEventListener('mouseover', function(event) {
 	// #1
 	/* remove the following so that we only target individual song rows during event delegation: console.log(event.target);*/
 	if (event.target.parentElement.className === 'album-view-song-item') {
