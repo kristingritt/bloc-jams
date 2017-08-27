@@ -70,13 +70,17 @@ var setCurrentAlbum = function (album) {
 
 //write a findParentByClassName function that keeps traversing the DOM upward until a parent with a specified name is found
 
+//Re-write function so it 1)checks to see if a parent exists. If it doesn't, then console.log a strong that says "no parent found" and 2) shows a different strong in the console.log when it fails to find a parent with the given class name: "no parent found with that name
 var findParentByClassName = function(element, targetClass) { 
-  if (element) {
-    //define the element we're searching for
     var currentParentElement = element.parentElement;  
-    while (currentParentElement.className !== targetClass && currentParentElement.className !== null) {
+    /*while (currentParentElement.className !== targetClass && currentParentElement.className !== null) {
       currentParentElement = currentParentElement.parentElement;
-    }
+    }*/
+      if (currentParentElement === null) {
+        console.log("No parent found");
+      } else if (currentParentElement.className !== targetClass) {
+        console.log("No parent found with that class name");
+      } else {
     return currentParentElement;
   }
 };
@@ -160,6 +164,6 @@ for (var i = 0; i < songRows.length; i++) {
 	});
   songRows[i].addEventListener('click', function(event) {
     clickHandler(event.target);
-  });
-}
+    });
+  }
 };
