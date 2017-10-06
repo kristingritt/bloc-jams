@@ -62,7 +62,7 @@ var createSongRow = function (songNumber, songName, songLength) {
 
 var setCurrentAlbum = function (album) {
 	// #1 select all of the HTML elements required to display on the album page: title, artist, release info, image, and song list. 
-     
+  currentAlbum = album;   
   var $albumTitle = $('.album-view-title');
   var $albumArtist = $('.album-view-artist');
   var $albumReleaseInfo = $('.album-view-release-info');
