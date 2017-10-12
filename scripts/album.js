@@ -39,6 +39,7 @@ var createSongRow = function (songNumber, songName, songLength) {
 		  // Switch from Play -> Pause button to indicate new song is playing.
 		  $(this).html(pauseButtonTemplate);
 		  setSong(songNumber);
+          currentSoundFile.play(); 
           mySound.play(currentSoundFile);
       } else if (currentlyPlayingSongNumber === songNumber) {
 		  // Switch from Pause -> Play button to pause currently playing song.
@@ -46,7 +47,6 @@ var createSongRow = function (songNumber, songName, songLength) {
 		  $('.main-controls .play-pause').html(playerBarPlayButton);  
         // if the currentSoundFile is paused, start plauing the song again and revert the icon in hte song row and the player bar to the pause button  
         if (currentSoundFile.isPaused(currentSoundFile)) {
-            mySound.play(currentSoundFile)
             $(this).html(playButtonTemplate);
 		    $('.main-controls .play-pause').html(playerBarPlayButton);   
             currentSoundFile.play();
