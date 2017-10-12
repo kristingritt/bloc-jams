@@ -1,6 +1,12 @@
 var setSong = function(songNumber) {
   currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentSongFromAlbum.songs[songNumber -1];
+  // #1 - here we assign a new buzz sound object - passing the audio file via the audioUrl property on the currentSongFromAlbum object
+  currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
+  // #2 defines properties, file format and preload - which tells Buzz that we want the mp3 to loaded as soon as the page loads
+    formats: [ 'mp3' ],
+    preload: true
+  });
 };
 
 var getSongNumberCell = function(number) {
@@ -33,12 +39,22 @@ var createSongRow = function (songNumber, songName, songLength) {
 		  // Switch from Play -> Pause button to indicate new song is playing.
 		  $(this).html(pauseButtonTemplate);
 		  setSong(songNumber);
+          mySound.play(currentSoundFile);
       } else if (currentlyPlayingSongNumber === songNumber) {
 		  // Switch from Pause -> Play button to pause currently playing song.
 		  $(this).html(playButtonTemplate);
 		  $('.main-controls .play-pause').html(playerBarPlayButton);  
-          currentlyPlayingSongNumber = null;
-          currentSongFromAlbum = null; 
+        // if the currentSoundFile is paused, start plauing the song again and revert the icon in hte song row and the player bar to the pause button  
+        if (currentSoundFile.isPaused(currentSoundFile)) {
+            mySound.play(currentSoundFile)
+            $(this).html(playButtonTemplate);
+		    $('.main-controls .play-pause').html(playerBarPlayButton);   
+            currentSoundFile.play();
+        } else {
+            $(this).html(playButtonTemplate);
+            $('.main-controls .play-pause').html(playerBarPlayButton);
+            currentSoundFile.pause();
+          }
 	   }
     };
   
@@ -171,10 +187,11 @@ var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause">
 var playerBarPlayButton = '<span class="ion-play"></span>';
 var playerBarPauseButton = '<span class="ion-pause"></span>';
 
-//create a variable to store currently playing song set to null so that no song is identified as playing until we click one. 
+//create a variable to store currently playing song set to null so that no song is identified as playing until we click one. Global variables. 
 var currentAlbum = null; 
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null; 
+var currentSoundFile = null; 
  
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
