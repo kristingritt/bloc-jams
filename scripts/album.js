@@ -1,4 +1,8 @@
 var setSong = function(songNumber) {
+  //checks for a defined currentSoundFile and then runs currentSoundFile.stop() if true
+  if (currentSoundFile) {
+    currentSoundFile.stop();
+  }
   currentlyPlayingSongNumber = parseInt(songNumber);
   currentSongFromAlbum = currentSongFromAlbum.songs[songNumber -1];
   // #1 - here we assign a new buzz sound object - passing the audio file via the audioUrl property on the currentSongFromAlbum object
@@ -7,7 +11,16 @@ var setSong = function(songNumber) {
     formats: [ 'mp3' ],
     preload: true
   });
+ 
+     setVolume(currentVolume);
 };
+
+ 
+ var setVolume = function(volume) {
+     if (currentSoundFile) {
+         currentSoundFile.setVolume(volume);
+     }
+ };
 
 var getSongNumberCell = function(number) {
   return $('.song-item-number[data-song-number="' + number + '"]');
@@ -139,8 +152,8 @@ var nextSong = function() {
     var lastSongNumber = currentlyPlayingSongNumber;
 
     // Set a new current song
-    currentlyPlayingSongNumber = currentSongIndex + 1;
-    currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    setSong(currentSongIndex + 1);
+    currentSoundFile.play();
 
     // Update the Player Bar information
     updatePlayerBarSong();
@@ -166,6 +179,7 @@ var previousSong = function() {
 
     // Set a new current song
     setSong(currentSongIndex + 1);
+    currentSoundFile.play();
     // Update the Player Bar information
     updatePlayerBarSong();
 
@@ -191,7 +205,8 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var currentAlbum = null; 
 var currentlyPlayingSongNumber = null;
 var currentSongFromAlbum = null; 
-var currentSoundFile = null; 
+var currentSoundFile = null;
+var currentVolume = 80;
  
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
