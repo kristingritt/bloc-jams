@@ -45,19 +45,19 @@ var createSongRow = function (songNumber, songName, songLength) {
 
       if (currentlyPlayingSongNumber !== null) {
 		  var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
-		  currentlyPlayingCell.html(currentlyPlayingSongNumber);
+		  
+          currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
+          currentlyPlayingCell.html(currentlyPlayingSongNumber);
       }
       
       if (currentlyPlayingSongNumber !== songNumber) {
 		  // Switch from Play -> Pause button to indicate new song is playing.
-		  $(this).html(pauseButtonTemplate);
-		  setSong(songNumber);
-          currentSoundFile.play(); 
-          mySound.play(currentSoundFile);
+		  setSong(songNumber);  
+          currentSoundFile.play();   
+          $(this).html(pauseButtonTemplate);
+          currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+          updatePlayerBarSong();
       } else if (currentlyPlayingSongNumber === songNumber) {
-		  // Switch from Pause -> Play button to pause currently playing song.
-		  $(this).html(playButtonTemplate);
-		  $('.main-controls .play-pause').html(playerBarPlayButton);  
         // if the currentSoundFile is paused, start plauing the song again and revert the icon in hte song row and the player bar to the pause button  
         if (currentSoundFile.isPaused(currentSoundFile)) {
             $(this).html(playButtonTemplate);
@@ -87,7 +87,7 @@ var createSongRow = function (songNumber, songName, songLength) {
         if (songNumber !== currentlyPlayingSongNumber) {
             songNumberCell.html(songNumber);
         }
-      console.log("songNumber type is " + typeof songNumber + "\n and currentlyPlayingSongNumber type is " + typeof currentlyPlayingSongNumber);
+    
     };
  
      // #1
